@@ -13,7 +13,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +38,30 @@ public class MainActivity extends AppCompatActivity {
         btnCaptureImage = findViewById(R.id.btnCaptureImage);
         ivPostImage = findViewById(R.id.ivPostImage);
         btnSubmit = findViewById(R.id.btnSubmit);
+
+        queryPosts();
+
+    }
+
+    private void queryPosts() {
+        // Specify which class to query
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        //specify the object id
+        query.include(Post.KEY_USER);
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "issue with getting posts");
+                    return;
+                } else {
+                    for (Post post : posts) {
+                        Log.i(TAG, "Post: "  + post.getDescription() + ", username: " + post.getUser().getUsername());
+                    }
+                }
+            }
+        });
+
 
     }
 
