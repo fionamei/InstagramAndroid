@@ -54,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Issue with login!", Toast.LENGTH_LONG).show();
                     return;
                 } else {
-                    //TODO TO NAVIGATE TO MAIN ACTIVITY TO SEE IF USER HAS SIGNED IN SUCCESSFULLY
                     goMainActivity();
                     Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_LONG).show();
                 }
