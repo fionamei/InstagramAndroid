@@ -24,16 +24,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -108,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.e(TAG, "error while saving", e);
                     Toast.makeText(MainActivity.this, "Error while saving", Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.i(TAG, "post save was successful");
                     etDescription.setText("");
                     ivPostImage.setImageResource(0);
                 }
@@ -200,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
     void onLogoutButton() {
         ParseUser.logOutInBackground();
         ParseUser currentUser = ParseUser.getCurrentUser();
-        Log.i("MainActivity", "the current user is " + currentUser);
         Toast.makeText(this, "Logged out!", Toast.LENGTH_SHORT).show();
         goLoginActivity();
 
