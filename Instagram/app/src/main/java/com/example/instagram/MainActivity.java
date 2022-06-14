@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnCaptureImage;
     private ImageView ivPostImage;
     private Button btnSubmit;
+    private Button btnFeed;
+
 
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     public String photoFileName = "photo.jpg";
@@ -56,21 +58,23 @@ public class MainActivity extends AppCompatActivity {
         btnCaptureImage = findViewById(R.id.btnCaptureImage);
         ivPostImage = findViewById(R.id.ivPostImage);
         btnSubmit = findViewById(R.id.btnSubmit);
+        btnFeed = findViewById(R.id.btnFeed);
 
 //        queryPosts();
 
         submitListener();
         captureImageListener();
-    }
 
-    private void captureImageListener() {
-        btnCaptureImage.setOnClickListener(new View.OnClickListener() {
+        btnFeed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchCamera();
+                Intent i = new Intent(MainActivity.this, FeedActivity.class);
+                startActivity(i);
             }
         });
     }
+
+
 
     private void submitListener() {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +91,35 @@ public class MainActivity extends AppCompatActivity {
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
+            }
+        });
+    }
+
+    private void savePost(String description, ParseUser currentUser, File photoFile) {
+        Post post = new Post();
+        post.setDescription(description);
+        post.setImage(new ParseFile(photoFile));
+        post.setUser(currentUser);
+        post.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "error while saving", e);
+                    Toast.makeText(MainActivity.this, "Error while saving", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.i(TAG, "post save was successful");
+                    etDescription.setText("");
+                    ivPostImage.setImageResource(0);
+                }
+            }
+        });
+    }
+
+    private void captureImageListener() {
+        btnCaptureImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchCamera();
             }
         });
     }
@@ -147,25 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void savePost(String description, ParseUser currentUser, File photoFile) {
-        Post post = new Post();
-        post.setDescription(description);
-        post.setImage(new ParseFile(photoFile));
-        post.setUser(currentUser);
-        post.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "error while saving", e);
-                    Toast.makeText(MainActivity.this, "Error while saving", Toast.LENGTH_SHORT).show();
-                } else {
-                    Log.i(TAG, "post save was successful");
-                    etDescription.setText("");
-                    ivPostImage.setImageResource(0);
-                }
-            }
-        });
-    }
+
 
     private void queryPosts() {
         // Specify which class to query
