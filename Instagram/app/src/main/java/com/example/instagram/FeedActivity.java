@@ -3,6 +3,7 @@ package com.example.instagram;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ public class FeedActivity extends AppCompatActivity {
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
     public static final String TAG = "FeedActivity";
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
 
         rvPosts = findViewById(R.id.rvPosts);
+        swipeContainer = findViewById(R.id.swipeContainer);
 
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(this, allPosts);
@@ -35,6 +38,7 @@ public class FeedActivity extends AppCompatActivity {
         rvPosts.setLayoutManager(new LinearLayoutManager(this));
 
         queryPosts();
+        swipeListener();
 
     }
 
@@ -56,14 +60,25 @@ public class FeedActivity extends AppCompatActivity {
                     return;
                 }
 
-                // TEMP -- DELETE LATER to print evert post description
-                for (Post post : posts) {
-                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
-                }
-
                 allPosts.addAll(posts);
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    private void swipeListener() {
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchFeedAsync();
+            }
+        });
+    }
+
+    private void fetchFeedAsync() {
+        queryPosts();
+        adapter.clear();
+        adapter.addAll(allPosts);
+        swipeContainer.setRefreshing(false);
     }
 }

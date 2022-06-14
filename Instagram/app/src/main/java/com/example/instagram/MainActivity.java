@@ -54,13 +54,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        etDescription = findViewById(R.id.etDescription);
-        btnCaptureImage = findViewById(R.id.btnCaptureImage);
-        ivPostImage = findViewById(R.id.ivPostImage);
-        btnSubmit = findViewById(R.id.btnSubmit);
-        btnFeed = findViewById(R.id.btnFeed);
-
-//        queryPosts();
+        initViews();
 
         submitListener();
         captureImageListener();
@@ -74,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void initViews() {
+        etDescription = findViewById(R.id.etDescription);
+        btnCaptureImage = findViewById(R.id.btnCaptureImage);
+        ivPostImage = findViewById(R.id.ivPostImage);
+        btnSubmit = findViewById(R.id.btnSubmit);
+        btnFeed = findViewById(R.id.btnFeed);
+    }
 
 
     private void submitListener() {
@@ -180,29 +181,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
-    private void queryPosts() {
-        // Specify which class to query
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        //specify the object id
-        query.include(Post.KEY_USER);
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "issue with getting posts");
-                    return;
-                } else {
-                    for (Post post : posts) {
-                        Log.i(TAG, "Post: "  + post.getDescription() + ", username: " + post.getUser().getUsername());
-                    }
-                }
-            }
-        });
-
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
