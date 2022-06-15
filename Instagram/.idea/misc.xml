@@ -8,8 +8,11 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.31165466308593753" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.203125" />
         <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.44052734375" />
+        <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.203125" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.37447916666666664" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.5" />
         <entry key="app/src/main/res/layout/menu_main.xml" value="0.20208333333333334" />
+        <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.28112335205078126" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.203125" />
         <entry key="app/src/main/res/xml/fileprovider.xml" value="0.203125" />
       </map>
