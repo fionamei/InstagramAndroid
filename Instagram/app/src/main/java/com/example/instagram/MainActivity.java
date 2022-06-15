@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.example.instagram.fragments.ComposeFragment;
 import com.example.instagram.fragments.FeedFragment;
+import com.example.instagram.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.parse.ParseException;
@@ -42,13 +43,12 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
 
-    private Button btnFeed;
     private BottomNavigationView bottomNavigationView;
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
     final Fragment fragment1 = new FeedFragment();
     final Fragment fragment2 = new ComposeFragment();
-//    final Fragment fragment3 = new ThirdFragment();
+    final Fragment fragment3 = new ProfileFragment();
 
 
 
@@ -59,28 +59,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
-        inflateViews();
         listenerSetup();
 
-
-        btnFeed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, FeedActivity.class);
-                startActivity(i);
-            }
-        });
     }
 
     private void initViews() {
-        btnFeed = findViewById(R.id.btnFeed);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
     }
 
-    private void inflateViews() {
-        // setting default selection
-        bottomNavigationView.setSelectedItemId(R.id.action_compose);
-    }
 
     private void listenerSetup() {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -98,13 +84,15 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_profile:
                     default:
                         //TODO
-                        fragment = fragment2;
+                        fragment = fragment3;
                         break;
                 }
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
                 return true;
             }
         });
+        // setting default selection
+        bottomNavigationView.setSelectedItemId(R.id.action_compose);
     }
 
 

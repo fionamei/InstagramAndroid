@@ -15,12 +15,6 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation" />
 
-    <Button
-        android:id="@+id/btnFeed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Go to feed" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

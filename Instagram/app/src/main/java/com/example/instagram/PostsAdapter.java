@@ -67,6 +67,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvDescription;
         private TextView tvTimeAgo;
         private LinearLayout rootView;
+        private ImageView ivProfpilePic;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +82,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvTimeAgo = itemView.findViewById(R.id.tvTimeAgo);
             rootView = itemView.findViewById(R.id.rootView);
+            ivProfpilePic = itemView.findViewById(R.id.ivProfilePic);
         }
 
         private void rootViewListener() {
@@ -103,6 +105,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
             tvTimeAgo.setText(post.getTimeAgo());
+            ParseFile profilePic = post.getProfilePic();
+            if (profilePic != null) {
+                Glide.with(context).load(profilePic.getUrl()).circleCrop().into(ivProfpilePic);
+            }
         }
     }
 }

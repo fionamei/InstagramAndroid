@@ -21,6 +21,7 @@ public class Post extends ParseObject {
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
+    public static final String KEY_PROFILE_PIC = "profilePic";
 
     public Post() {}
 
@@ -34,6 +35,12 @@ public class Post extends ParseObject {
 
     public ParseFile getImage() {
         return getParseFile(KEY_IMAGE);
+    }
+
+    public ParseFile getProfilePic() {
+        ParseUser user = getParseUser(KEY_USER);
+        assert user != null;
+        return user.getParseFile(KEY_PROFILE_PIC);
     }
 
     public void setImage(ParseFile parseFile) {
@@ -51,6 +58,7 @@ public class Post extends ParseObject {
     public String getTimeAgo() {
         return calculateTimeAgo(getCreatedAt());
     }
+
 
     public static String calculateTimeAgo(Date createdAt) {
         long MINUTE_MILLIS = TimeUnit.MINUTES.toMillis(1L);
