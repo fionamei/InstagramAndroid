@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.instagram.R;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 public class ProfileFragment extends Fragment {
@@ -48,6 +50,10 @@ public class ProfileFragment extends Fragment {
     }
 
     private void populateViews() {
+        ParseFile profilePic = user.getParseFile("profilePic");
+        if (profilePic != null) {
+            Glide.with(getContext()).load(profilePic.getUrl()).circleCrop().into(ivProfilePic);
+        }
         tvUsername.setText(user.getUsername());
 
     }
