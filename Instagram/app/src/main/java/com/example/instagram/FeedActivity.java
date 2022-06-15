@@ -5,8 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -22,6 +25,7 @@ public class FeedActivity extends AppCompatActivity {
     protected List<Post> allPosts;
     public static final String TAG = "FeedActivity";
     private SwipeRefreshLayout swipeContainer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,6 @@ public class FeedActivity extends AppCompatActivity {
 
         queryPosts();
         swipeListener();
-
     }
 
     private void queryPosts() {
@@ -82,4 +85,6 @@ public class FeedActivity extends AppCompatActivity {
         adapter.addAll(allPosts);
         swipeContainer.setRefreshing(false);
     }
+
+
 }

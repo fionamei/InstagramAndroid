@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Instagram</string>
     <string name="content_image">Content image</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
 </resources>

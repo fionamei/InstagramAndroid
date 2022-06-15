@@ -1,10 +1,12 @@
 package com.example.instagram;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -36,6 +40,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull PostsAdapter.ViewHolder holder, int position) {
         Post post = posts.get(position);
         holder.bind(post);
+        holder.rootView.setTag(post);
     }
 
     @Override
@@ -61,13 +66,33 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView ivImage;
         private TextView tvDescription;
         private TextView tvTimeAgo;
+        private LinearLayout rootView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            initViews(itemView);
+            rootViewListener();
+
+        }
+
+        private void initViews(@NonNull View itemView) {
             tvUsername = itemView.findViewById(R.id.tvUsername);
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvTimeAgo = itemView.findViewById(R.id.tvTimeAgo);
+            rootView = itemView.findViewById(R.id.rootView);
+        }
+
+        private void rootViewListener() {
+            rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Post post = (Post) v.getTag();
+                    Intent i = new Intent(context, PostDetailActivity.class);
+                    i.putExtra("post", Parcels.wrap(post));
+                    context.startActivity(i);
+                }
+            });
         }
 
         public void bind(Post post) {
