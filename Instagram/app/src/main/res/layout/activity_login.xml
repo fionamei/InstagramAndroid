@@ -10,59 +10,7 @@
     tools:context=".LoginActivity">
 
 
-    <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/nav_logo_whiteout" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Til"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        app:boxCornerRadiusBottomEnd="5dp"
-        app:boxCornerRadiusBottomStart="5dp"
-        app:boxCornerRadiusTopEnd="5dp"
-        app:boxCornerRadiusTopStart="5dp"
-        app:boxBackgroundColor="@color/grey">
-
-    <EditText
-        android:id="@+id/etUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_weight="1"
-        android:hint="@string/username"
-        android:textColorHint="@color/black"
-        tools:ignore="KeyboardInaccessibleWidget"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Til"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        app:boxCornerRadiusBottomEnd="5dp"
-        app:boxCornerRadiusBottomStart="5dp"
-        app:boxCornerRadiusTopEnd="5dp"
-        app:boxCornerRadiusTopStart="5dp"
-        app:boxBackgroundColor="@color/grey">
-
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        tools:ignore="KeyboardInaccessibleWidget"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
+   <include layout="@layout/input_layout" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -73,4 +21,52 @@
         android:text="@string/login"
         android:textColor="@color/white"
         android:backgroundTint="@color/blue"/>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginVertical="15dp">
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginHorizontal="10dp"
+            android:text="@string/or"/>
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+
+            />
+
+
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/signup"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/green"/>
 </LinearLayout>

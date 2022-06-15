@@ -13,16 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.instagram.R;
+import com.parse.ParseUser;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProfileFragment extends Fragment {
 
     private ImageView ivProfilePic;
     private TextView tvUsername;
+    private ParseUser user;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -40,6 +37,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initViews(view);
+        user = ParseUser.getCurrentUser();
         populateViews();
 
     }
@@ -50,5 +48,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void populateViews() {
+        tvUsername.setText(user.getUsername());
+
     }
 }

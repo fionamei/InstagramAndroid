@@ -28,8 +28,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.instagram.MainActivity;
-import com.example.instagram.Post;
+import com.example.instagram.models.Post;
 import com.example.instagram.R;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -38,11 +37,6 @@ import com.parse.SaveCallback;
 
 import java.io.File;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ComposeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ComposeFragment extends Fragment {
 
     private EditText etDescription;
