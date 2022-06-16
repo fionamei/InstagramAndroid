@@ -1,6 +1,8 @@
 package com.example.instagram;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +19,8 @@ public class PostDetailActivity extends AppCompatActivity {
     private ImageView ivImage;
     private TextView tvDescription;
     private TextView tvTimeAgo;
-    private ImageView ivProfpilePic;
+    private ImageView ivProfilePic;
+    private TextView tvLikes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,8 @@ public class PostDetailActivity extends AppCompatActivity {
         ivImage = findViewById(R.id.ivImage);
         tvDescription = findViewById(R.id.tvDescription);
         tvTimeAgo = findViewById(R.id.tvTimeAgo);
-        ivProfpilePic = findViewById(R.id.ivProfilePic);
+        ivProfilePic = findViewById(R.id.ivProfilePic);
+        tvLikes = findViewById(R.id.tvLikes);
     }
 
     private void populateViews(Post post) {
@@ -47,7 +51,10 @@ public class PostDetailActivity extends AppCompatActivity {
         tvTimeAgo.setText(post.getTimeAgo());
         ParseFile profilePic = post.getProfilePic();
         if (profilePic != null) {
-            Glide.with(this).load(profilePic.getUrl()).circleCrop().into(ivProfpilePic);
+            Glide.with(this).load(profilePic.getUrl()).circleCrop().into(ivProfilePic);
         }
+        Resources res = this.getResources();
+        String likes = res.getQuantityString(R.plurals.likes, post.getLikes(), post.getLikes());
+        tvLikes.setText(likes);
     }
 }

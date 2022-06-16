@@ -3,9 +3,11 @@ package com.example.instagram;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,7 +45,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         Post post = posts.get(position);
         holder.bind(post);
         holder.ivImage.setTag(post);
-//        holder.rootView.setTag(post);
+        holder.ibLike.setTag(post);
+
     }
 
     @Override
@@ -72,11 +75,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView ivProfilePic;
         private TextView tvLikes;
         private TextView tvViewComments;
+        private ImageButton ibLike;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             initViews(itemView);
             detailViewListener();
+            likeListener();
         }
 
         private void initViews(@NonNull View itemView) {
@@ -87,6 +92,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
             tvLikes = itemView.findViewById(R.id.tvLikes);
             tvViewComments = itemView.findViewById(R.id.tvViewComments);
+            ibLike = itemView.findViewById(R.id.ibLike);
         }
 
         private void detailViewListener() {
@@ -99,6 +105,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                     context.startActivity(i);
                 }
             });
+        }
+
+        private void likeListener() {
+            ibLike.setOnClickListener(new PostFavoriteListener(new PostFavoriteCallback() {
+                @Override
+                public void onFavoriteSuccess() {
+                    Log.i("PostsAdapter", "post is clicked!!");
+                    notifyDataSetChanged();
+                }
+            }));
         }
 
         public void bind(Post post) {
@@ -119,5 +135,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
 
         }
+
     }
 }

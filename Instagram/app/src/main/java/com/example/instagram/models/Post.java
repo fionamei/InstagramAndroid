@@ -24,6 +24,7 @@ public class Post extends ParseObject {
     public static final String KEY_USER = "user";
     public static final String KEY_PROFILE_PIC = "profilePic";
     public static final String KEY_LIKES = "likes";
+    public static final String KEY_IS_LIKED = "isLiked";
     public static final String KEY_COMMENTS = "comments";
 
     public Post() {}
@@ -62,11 +63,20 @@ public class Post extends ParseObject {
         return getInt(KEY_LIKES);
     }
 
-    public void setLikes(int diff) {
-        int newLikes = getLikes() + diff;
-        put(KEY_LIKES, newLikes);
+    public boolean isLiked() {
+        return getBoolean(KEY_IS_LIKED);
     }
-    
+
+    public void likePost() {
+        put(KEY_IS_LIKED, true);
+        put(KEY_LIKES, getLikes() + 1);
+    }
+
+    public void unlikePost() {
+        put(KEY_IS_LIKED, false);
+        put(KEY_LIKES, getLikes() - 1);
+    }
+
     public String getTimeAgo() {
         return calculateTimeAgo(getCreatedAt());
     }
