@@ -1,15 +1,17 @@
-package com.example.instagram;
+package com.example.instagram.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.instagram.PostFavoriteCallback;
+import com.example.instagram.PostFavoriteListener;
+import com.example.instagram.R;
 import com.example.instagram.models.Post;
 import com.parse.ParseFile;
 

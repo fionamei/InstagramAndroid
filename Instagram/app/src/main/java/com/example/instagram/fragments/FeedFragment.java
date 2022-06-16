@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.instagram.models.Post;
-import com.example.instagram.PostsAdapter;
+import com.example.instagram.adapters.PostsAdapter;
 import com.example.instagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;

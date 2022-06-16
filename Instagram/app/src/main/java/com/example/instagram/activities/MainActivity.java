@@ -1,8 +1,8 @@
-package com.example.instagram;
+package com.example.instagram.activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.instagram.R;
 import com.example.instagram.fragments.ComposeFragment;
 import com.example.instagram.fragments.FeedFragment;
 import com.example.instagram.fragments.ProfileFragment;
@@ -32,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(R.drawable.nux_dayone_landing_logo);
 
         initViews();
         listenerSetup();
