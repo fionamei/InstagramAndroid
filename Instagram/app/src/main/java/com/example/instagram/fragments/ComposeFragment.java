@@ -25,7 +25,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.instagram.models.Post;
@@ -40,9 +42,9 @@ import java.io.File;
 public class ComposeFragment extends Fragment {
 
     private EditText etDescription;
-    private Button btnCaptureImage;
+    private ImageButton btnCaptureImage;
     private ImageView ivPostImage;
-    private Button btnSubmit;
+    private TextView btnSubmit;
     public static final String TAG = "ComposeFragment";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     public String photoFileName = "photo.jpg";

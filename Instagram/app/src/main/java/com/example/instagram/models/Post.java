@@ -9,6 +9,7 @@ import com.parse.ParseUser;
 
 import org.parceler.Parcel;
 
+import java.lang.reflect.Array;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -22,6 +23,8 @@ public class Post extends ParseObject {
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
     public static final String KEY_PROFILE_PIC = "profilePic";
+    public static final String KEY_LIKES = "likes";
+    public static final String KEY_COMMENTS = "comments";
 
     public Post() {}
 
@@ -55,6 +58,15 @@ public class Post extends ParseObject {
         put(KEY_USER, user);
     }
 
+    public int getLikes() {
+        return getInt(KEY_LIKES);
+    }
+
+    public void setLikes(int diff) {
+        int newLikes = getLikes() + diff;
+        put(KEY_LIKES, newLikes);
+    }
+    
     public String getTimeAgo() {
         return calculateTimeAgo(getCreatedAt());
     }

@@ -2,6 +2,7 @@ package com.example.instagram;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull PostsAdapter.ViewHolder holder, int position) {
         Post post = posts.get(position);
         holder.bind(post);
-        holder.rootView.setTag(post);
+        holder.ivImage.setTag(post);
+//        holder.rootView.setTag(post);
     }
 
     @Override
@@ -67,14 +69,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView ivImage;
         private TextView tvDescription;
         private TextView tvTimeAgo;
-        private LinearLayout rootView;
         private ImageView ivProfilePic;
+        private TextView tvLikes;
+        private TextView tvViewComments;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             initViews(itemView);
-            rootViewListener();
-
+            detailViewListener();
         }
 
         private void initViews(@NonNull View itemView) {
@@ -82,12 +84,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvTimeAgo = itemView.findViewById(R.id.tvTimeAgo);
-            rootView = itemView.findViewById(R.id.rootView);
             ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
+            tvLikes = itemView.findViewById(R.id.tvLikes);
+            tvViewComments = itemView.findViewById(R.id.tvViewComments);
         }
 
-        private void rootViewListener() {
-            rootView.setOnClickListener(new View.OnClickListener() {
+        private void detailViewListener() {
+            ivImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Post post = (Post) v.getTag();
@@ -110,6 +113,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             if (profilePic != null) {
                 Glide.with(context).load(profilePic.getUrl()).circleCrop().into(ivProfilePic);
             }
+            Resources res = context.getResources();
+            String likes = res.getQuantityString(R.plurals.likes, post.getLikes(), post.getLikes());
+            tvLikes.setText(likes);
+
+
         }
     }
 }
