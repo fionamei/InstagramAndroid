@@ -80,8 +80,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             initViews(itemView);
-            detailViewListener();
-            likeListener();
+            listenerSetup();
         }
 
         private void initViews(@NonNull View itemView) {
@@ -93,6 +92,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvLikes = itemView.findViewById(R.id.tvLikes);
             tvViewComments = itemView.findViewById(R.id.tvViewComments);
             ibLike = itemView.findViewById(R.id.ibLike);
+        }
+
+        private void listenerSetup() {
+            detailViewListener();
+            likeListener();
         }
 
         private void detailViewListener() {

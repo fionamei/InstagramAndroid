@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,21 +17,24 @@ import org.parceler.Parcels;
 
 public class PostDetailActivity extends AppCompatActivity {
 
+    Post post;
     private TextView tvUsername;
     private ImageView ivImage;
     private TextView tvDescription;
     private TextView tvTimeAgo;
     private ImageView ivProfilePic;
     private TextView tvLikes;
+    private ImageButton ibLike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_post);
 
-        Post post = (Post) Parcels.unwrap(getIntent().getParcelableExtra("post"));
+        post = (Post) Parcels.unwrap(getIntent().getParcelableExtra("post"));
         initViews();
         populateViews(post);
+        likeListener();
     }
 
     private void initViews() {
@@ -39,6 +44,7 @@ public class PostDetailActivity extends AppCompatActivity {
         tvTimeAgo = findViewById(R.id.tvTimeAgo);
         ivProfilePic = findViewById(R.id.ivProfilePic);
         tvLikes = findViewById(R.id.tvLikes);
+        ibLike = findViewById(R.id.ibLike);
     }
 
     private void populateViews(Post post) {
@@ -56,5 +62,17 @@ public class PostDetailActivity extends AppCompatActivity {
         Resources res = this.getResources();
         String likes = res.getQuantityString(R.plurals.likes, post.getLikes(), post.getLikes());
         tvLikes.setText(likes);
+        ibLike.setTag(post);
+    }
+
+    private void likeListener() {
+        ibLike.setOnClickListener(new PostFavoriteListener(new PostFavoriteCallback() {
+            @Override
+            public void onFavoriteSuccess() {
+                Resources res = PostDetailActivity.this.getResources();
+                String likes = res.getQuantityString(R.plurals.likes, post.getLikes(), post.getLikes());
+                tvLikes.setText(likes);
+            }
+        }));
     }
 }

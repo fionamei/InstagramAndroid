@@ -13,6 +13,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
         android:layout_weight="1"
         tools:src="@tools:sample/avatars" />
 
@@ -22,5 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
         tools:text="Bob" />
 </LinearLayout>
