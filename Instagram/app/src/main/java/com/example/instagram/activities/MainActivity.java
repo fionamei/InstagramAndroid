@@ -32,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(R.drawable.nux_dayone_landing_logo);
+        actionBar.setLogo(R.drawable.white_logo_instagram);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         initViews();
         listenerSetup();
