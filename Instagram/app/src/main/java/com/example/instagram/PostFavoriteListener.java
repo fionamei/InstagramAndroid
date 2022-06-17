@@ -14,6 +14,10 @@ import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,7 +25,7 @@ public class PostFavoriteListener implements View.OnClickListener {
 
     private final PostFavoriteCallback callback;
     private Post post;
-    private Boolean liked;
+    private Boolean liked = false;
     private ParseUser user = ParseUser.getCurrentUser();
     public static final String TAG = "PostFavoriteListener";
 
@@ -33,30 +37,24 @@ public class PostFavoriteListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         post = (Post) v.getTag();
-        isLiked();
+        try {
+            isLiked();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void isLiked() {
-        ParseRelation<ParseObject> relation = post.getRelation("likedBy");
-        ParseQuery<ParseObject> query = relation.getQuery();
-        query.whereEqualTo("objectId", user.getObjectId());
-        query.findInBackground(new FindCallback<ParseObject>() {
-           @Override
-           public void done(List<ParseObject> objects, ParseException e) {
-                Log.i(TAG, "done query-ing");
-                if (e != null) {
-                    Log.e(TAG, "theres an error checking if liked" + e);
-                } else {
-                    Log.i(TAG, "contents of objects is" + objects);
-                    if (objects.isEmpty()) {
-                        liked = false;
-                    } else {
-                        liked = true;
-                    }
-                    save(post);
-                }
-           }
-        });
+    public void isLiked() throws JSONException {
+        JSONArray jsonArray = post.getJSONArray("likedBy");
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            String id = jsonObject.getString("objectId");
+            Log.i(TAG, "string of id is" + id );
+            if (id.equals(user.getObjectId())) {
+                liked = true;
+            }
+        }
+        save(post);
     }
 
     public void save(Post post) {
