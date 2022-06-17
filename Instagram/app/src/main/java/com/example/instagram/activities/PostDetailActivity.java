@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,7 +14,9 @@ import com.example.instagram.PostFavoriteCallback;
 import com.example.instagram.PostFavoriteListener;
 import com.example.instagram.R;
 import com.example.instagram.models.Post;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
@@ -51,7 +54,19 @@ public class PostDetailActivity extends AppCompatActivity {
 
     private void populateViews(Post post) {
         tvDescription.setText(post.getDescription());
-        tvUsername.setText(post.getUser().getUsername());
+//        tvUsername.setText(post.getUser().getUsername());
+        ParseUser postUser = post.getUser();
+        String username = "";
+        try {
+            username = postUser.fetchIfNeeded().getString("username");
+
+        } catch (ParseException e) {
+            Log.v("postdetail", e.toString());
+            e.printStackTrace();
+        }
+        tvUsername.setText(username);
+
+
         ParseFile image = post.getImage();
         if (image != null) {
             Glide.with(this).load(image.getUrl()).into(ivImage);

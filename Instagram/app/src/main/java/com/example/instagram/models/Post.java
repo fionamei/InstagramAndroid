@@ -29,8 +29,6 @@ public class Post extends ParseObject {
     public static final String KEY_USER = "user";
     public static final String KEY_PROFILE_PIC = "profilePic";
     public static final String KEY_LIKES = "likes";
-    public static final String KEY_IS_LIKED = "isLiked";
-    public static final String KEY_COMMENTS = "comments";
     public static final String KEY_LIKED_BY = "likedBy";
 
     public Post() {}
@@ -50,7 +48,12 @@ public class Post extends ParseObject {
     public ParseFile getProfilePic() {
         ParseUser user = getParseUser(KEY_USER);
         assert user != null;
-        return user.getParseFile(KEY_PROFILE_PIC);
+        try {
+            return user.fetchIfNeeded().getParseFile(KEY_PROFILE_PIC);
+        } catch (ParseException e) {
+            Log.e("Post", "Something has gone terribly wrong with Parse", e);
+        }
+        return null;
     }
 
     public void setImage(ParseFile parseFile) {
