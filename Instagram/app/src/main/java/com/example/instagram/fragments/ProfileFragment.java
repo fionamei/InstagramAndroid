@@ -46,6 +46,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,8 +62,8 @@ public class ProfileFragment extends Fragment {
     protected ProfilePostsAdapter adapter;
     protected List<Post> allPosts;
     public static final String TAG = "ProfileFragment";
-    // PICK_PHOTO_CODE is a constant integer
-    public final static int PICK_PHOTO_CODE = 1046;
+    public String photoFileName = "photo.jpg";
+    ParseFile photoFile;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -169,14 +170,25 @@ public class ProfileFragment extends Fragment {
                         Intent data = result.getData();
                         Uri photoUri = data.getData();
                         Bitmap selectedImage = loadFromUri(photoUri);
-                        ivProfilePic.setImageBitmap(selectedImage);
-//                        save(user, selectedImage);
+                        byte[] pic = encodeToByteArray(selectedImage);
+                        photoFile = new ParseFile(photoFileName, pic);
+                        save(user, photoFile);
                     }
                 }
             }
     );
 
-    private void save(ParseUser currentUser, File photoFile) {
+    public byte[] encodeToByteArray(Bitmap image) {
+        Log.d(TAG, "encodeToByteArray");
+        Bitmap b = image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imgByteArray = baos.toByteArray();
+
+        return imgByteArray ;
+    }
+
+    private void save(ParseUser currentUser, ParseFile photoFile) {
         currentUser.put("profilePic", photoFile);
         currentUser.saveInBackground(new SaveCallback() {
             @Override
@@ -185,8 +197,7 @@ public class ProfileFragment extends Fragment {
                     Log.e(TAG, "error while saving", e);
                     Toast.makeText(getContext(), "Error while saving", Toast.LENGTH_SHORT).show();
                 } else {
-//                    etDescription.setText("");
-//                    ivPostImage.setImageResource(0);
+                    Glide.with(getContext()).load(photoFile.getUrl()).circleCrop().into(ivProfilePic);
                 }
             }
         });
