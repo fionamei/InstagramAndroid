@@ -69,7 +69,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String username, String password) {
-        Log.i(TAG, "Attempting to login user" + username);
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
@@ -79,7 +78,6 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 } else {
                     goMainActivity();
-                    Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_LONG).show();
                 }
             }
         });

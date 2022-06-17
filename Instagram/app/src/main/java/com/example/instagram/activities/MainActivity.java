@@ -23,17 +23,13 @@ import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = "MainActivity";
-
     private BottomNavigationView bottomNavigationView;
-
     final FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(R.drawable.nux_dayone_landing_logo);

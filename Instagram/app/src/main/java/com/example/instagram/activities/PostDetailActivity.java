@@ -61,6 +61,7 @@ public class PostDetailActivity extends AppCompatActivity {
         if (profilePic != null) {
             Glide.with(this).load(profilePic.getUrl()).circleCrop().into(ivProfilePic);
         }
+        // to make it plural
         Resources res = this.getResources();
         String likes = res.getQuantityString(R.plurals.likes, post.getLikes(), post.getLikes());
         tvLikes.setText(likes);

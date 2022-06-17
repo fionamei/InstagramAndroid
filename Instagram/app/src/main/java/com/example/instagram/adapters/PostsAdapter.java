@@ -77,7 +77,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvTimeAgo;
         private ImageView ivProfilePic;
         private TextView tvLikes;
-        private TextView tvViewComments;
         private ImageButton ibLike;
 
         public ViewHolder(@NonNull View itemView) {
@@ -93,7 +92,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvTimeAgo = itemView.findViewById(R.id.tvTimeAgo);
             ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
             tvLikes = itemView.findViewById(R.id.tvLikes);
-            tvViewComments = itemView.findViewById(R.id.tvViewComments);
             ibLike = itemView.findViewById(R.id.ibLike);
         }
 

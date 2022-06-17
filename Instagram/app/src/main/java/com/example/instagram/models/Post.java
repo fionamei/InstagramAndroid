@@ -9,7 +9,6 @@ import com.parse.ParseUser;
 
 import org.parceler.Parcel;
 
-import java.lang.reflect.Array;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 

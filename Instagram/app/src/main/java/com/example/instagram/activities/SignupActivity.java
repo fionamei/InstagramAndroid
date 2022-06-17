@@ -10,12 +10,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.instagram.R;
-import com.example.instagram.activities.MainActivity;
 import com.parse.ParseUser;
 
 public class SignupActivity extends AppCompatActivity {
 
-    public static final String TAG = "SignupActivity";
     private EditText etUsername;
     private EditText etPassword;
     private Button btnSignup;
@@ -64,7 +62,6 @@ public class SignupActivity extends AppCompatActivity {
         user.setUsername(username);
         user.setPassword(password);
         user.signUpInBackground();
-
 
         goMainActivity();
     }

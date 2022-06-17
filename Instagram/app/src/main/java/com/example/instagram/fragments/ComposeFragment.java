@@ -23,7 +23,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -46,7 +45,6 @@ public class ComposeFragment extends Fragment {
     private ImageView ivPostImage;
     private TextView btnSubmit;
     public static final String TAG = "ComposeFragment";
-    public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     public String photoFileName = "photo.jpg";
     File photoFile;
 
@@ -66,8 +64,7 @@ public class ComposeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initViews(view);
-        submitListener();
-        captureImageListener();
+        listenerSetup();
     }
 
     private void initViews(View view) {
@@ -76,6 +73,11 @@ public class ComposeFragment extends Fragment {
         ivPostImage = view.findViewById(R.id.ivPostImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
 
+    }
+
+    private void listenerSetup() {
+        submitListener();
+        captureImageListener();
     }
 
     private void submitListener() {
