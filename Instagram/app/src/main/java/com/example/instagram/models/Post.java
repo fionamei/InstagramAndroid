@@ -2,14 +2,20 @@ package com.example.instagram.models;
 
 import android.util.Log;
 
+import com.parse.FindCallback;
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import org.parceler.Parcel;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -25,6 +31,7 @@ public class Post extends ParseObject {
     public static final String KEY_LIKES = "likes";
     public static final String KEY_IS_LIKED = "isLiked";
     public static final String KEY_COMMENTS = "comments";
+    public static final String KEY_LIKED_BY = "likedBy";
 
     public Post() {}
 
@@ -62,24 +69,18 @@ public class Post extends ParseObject {
         return getInt(KEY_LIKES);
     }
 
-    public boolean isLiked() {
-        return getBoolean(KEY_IS_LIKED);
-    }
-
-    public void likePost() {
-        put(KEY_IS_LIKED, true);
+    public void likePost(ParseUser currentUser) {
         put(KEY_LIKES, getLikes() + 1);
+
     }
 
-    public void unlikePost() {
-        put(KEY_IS_LIKED, false);
+    public void unlikePost(ParseUser currentUser) {
         put(KEY_LIKES, getLikes() - 1);
     }
 
     public String getTimeAgo() {
         return calculateTimeAgo(getCreatedAt());
     }
-
 
     public static String calculateTimeAgo(Date createdAt) {
         long MINUTE_MILLIS = TimeUnit.MINUTES.toMillis(1L);
